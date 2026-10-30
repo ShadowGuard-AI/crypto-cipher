@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 ## Crypto-Cipher
 
 Crypto-Cipher is a text encryption and decryption tool designed for basic cryptographic operations. It offers a streamlined interface and robust security features.
