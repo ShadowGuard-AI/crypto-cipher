@@ -1,5 +1,6 @@
 import argparse
 import logging
+import sys
 from cryptography.fernet import Fernet
 
 # Configure logging
@@ -61,6 +62,11 @@ def main():
     except Exception as e:
         logging.error("An error occurred: %s", str(e))
         print(f"Error: {str(e)}")
+        # Every failure used to fall through to exit 0, so a script could
+        # not tell a failed decryption from a good one without reading the
+        # output text. Fernet also raises with an empty message for a bad
+        # token, which is why the printed error above can look blank.
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
