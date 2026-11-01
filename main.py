@@ -33,8 +33,14 @@ def main():
     args = parser.parse_args()
 
     try:
+        # This branch runs before any key or text check, so passing
+        # --key or --text with generate-key is silently ignored
+        # rather than treated as a mistake.
         if args.operation == "generate-key":
             # Generate a new key
+            # I print the key and log it at info level as well. Anyone who
+            # keeps this program's logs has a copy of the key, which is
+            # worth knowing before this is run anywhere shared.
             key = Fernet.generate_key()
             logging.info("Generated encryption key: %s", key.decode())
             print(key.decode())
@@ -42,6 +48,9 @@ def main():
         elif args.operation == "encrypt":
             if not args.key or not args.text:
                 raise ValueError("Both --key and --text are required for encryption.")
+            # I take the text only from the command line. There is no file
+            # or standard input path, so long text and text with shell
+            # special characters have to survive the caller's quoting.
             fernet = Fernet(args.key.encode())
             encrypted_text = fernet.encrypt(args.text.encode()).decode()
             logging.info("Encryption successful.")
