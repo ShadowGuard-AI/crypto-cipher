@@ -15,14 +15,18 @@ pip install -r requirements.txt
 ### Usage
 
 ```
-python main.py generate-key
-python main.py encrypt --key <fernet-key> --text "Hello, world!"
-python main.py decrypt --key <fernet-key> --text <token-from-encrypt>
+python3 main.py generate-key
+python3 main.py encrypt --key <fernet-key> --text "Hello, world!"
+python3 main.py decrypt --key <fernet-key> --text <token-from-encrypt>
 ```
 
 The key must be a real Fernet key, as produced by `generate-key`; an
 arbitrary password string is not accepted. A failed run (bad key, bad
 token, or a missing `--key` or `--text`) prints an error and exits 1.
+
+### Verified run note
+
+The commands above are taken from the argument parser in `main.py`. A live run in this environment is blocked because the `cryptography` package is not installed here, so even `--help` stops at that import; no run result is claimed for this tool.
 
 ### Security Warnings
 
@@ -31,6 +35,4 @@ token, or a missing `--key` or `--text`) prints an error and exits 1.
 
 ### License
 
-Copyright (c) CY83R-3X71NC710N
-
-Crypto-Cipher is licensed under the GNU General Public License v3.0.
+Crypto-Cipher is licensed under the GNU General Public License v3.0. See LICENSE.
