@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="The porch in three bands: the far screen door where the light fades slowly and the door never opens, the corner in the middle band where the harvestman lifts one leg at long intervals and sets it down a board further on, and the near board edge across which one whole beetle crosses once and is gone">
+<rect width="1200" height="300" fill="#f4f1e6"/>
+<rect x="0" y="0" width="1200" height="96" fill="#cfe0da"><animate attributeName="fill" values="#dfe8df;#b9cdc9;#b9cdc9" dur="36s" repeatCount="indefinite"/></rect>
+<rect x="980" y="10" width="90" height="86" fill="#16484c"/><rect x="980" y="10" width="90" height="86" fill="none" stroke="#a84e2b" stroke-width="4"/>
+<rect x="0" y="96" width="1200" height="118" fill="#0e6e70"/>
+<polygon points="430,60 478,60 478,82 452,82 452,108 430,108" fill="#a84e2b"/>
+<g stroke="#463a2c" stroke-width="5"><line x1="560" y1="178" x2="520" y2="118"/><line x1="560" y1="178" x2="610" y2="116"/><line x1="560" y1="178" x2="492" y2="196"/><line x1="560" y1="178" x2="636" y2="198"/></g>
+<ellipse cx="560" cy="176" rx="26" ry="17" fill="#60523c"/><ellipse cx="560" cy="168" rx="26" ry="9" fill="#d6d0ba"/>
+<g stroke="#463a2c" stroke-width="5"><line x1="610" y1="116" x2="648" y2="186"><animate attributeName="x2" values="648;668;648" dur="24s" repeatCount="indefinite"/><animate attributeName="y2" values="186;182;186" dur="24s" repeatCount="indefinite"/></line></g>
+<rect x="0" y="214" width="1200" height="86" fill="#e6e1cf"/>
+<line x1="0" y1="228" x2="1200" y2="228" stroke="#a84e2b" stroke-width="4"/>
+<g><animateTransform attributeName="transform" type="translate" values="-80 0; 1300 0" dur="20s" repeatCount="indefinite"/><ellipse cx="40" cy="262" rx="17" ry="10" fill="#3a3630"/><circle cx="56" cy="260" r="7" fill="#3a3630"/><line x1="28" y1="270" x2="20" y2="280" stroke="#3a3630" stroke-width="3"/><line x1="44" y1="270" x2="44" y2="281" stroke="#3a3630" stroke-width="3"/></g>
+</svg>
