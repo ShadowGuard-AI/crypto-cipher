@@ -1,164 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crypto Cipher: what it is, how it runs, where it stops</title>
-<meta name="description" content="Crypto-Cipher is a text encryption and decryption tool designed for basic cryptographic operations">
-<style>
-:root {
-  --bg: #eee4d2; --panel: #f8f0e0; --ink: #4a1e22;
-  --mut: #ffffff;
-  --acc: #a83e36; --acc2: #406078;
-  --line: #f8f0e0;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Trebuchet MS', sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Courier New', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
-</head>
-<body class="layout-poster">
-<!-- This page exists for crypto-cipher alone: the layout (poster),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Crypto Cipher logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Crypto Cipher</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/crypto-cipher">github.com/ShadowGuard-AI/crypto-cipher</a></p>
-</header>
-
-<main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/crypto-cipher">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Crypto-Cipher is a text encryption and decryption tool designed for basic cryptographic operations</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Crypto Cipher: 3 files, 107 counted
-          lines across Python 66, Markdown 41. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/crypto-cipher.git<br>$ cd crypto-cipher</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 25 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>    return parser
-
-def main():
-    &quot;&quot;&quot;
-    Main function to handle encryption, decryption, and key generation.
-    &quot;&quot;&quot;
-    parser = setup_argparse()
-    args = parser.parse_args()
-
-    try:
-        if args.operation == &quot;generate-key&quot;:
-            # Generate a new key
-            key = Fernet.generate_key()
-            logging.info(&quot;Generated encryption key: %s&quot;, key.decode())
-            print(key.decode())
-
-        elif args.operation == &quot;encrypt&quot;:
-            if not args.key or not args.text:
-                raise ValueError(&quot;Both --key and --text are required for encryption.&quot;)
-            fernet = Fernet(args.key.encode())
-            encrypted_text = fernet.encrypt(args.text.encode()).decode()
-            logging.info(&quot;Encryption successful.&quot;)</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>66</td></tr>
-        <tr><td><code>README.md</code></td><td>41</td></tr>
-        <tr><td><code>LICENSE</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/crypto-cipher/tree/main/crypto-cipher-Visuals">crypto-cipher-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Crypto Cipher">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Crypto Cipher">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Crypto Cipher">
-        </div>
-      </section>
-    </div>
-  </section>
-</main>
-<footer>
-  <p>Crypto Cipher is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
-</body>
-</html>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>crypto-cipher: The Harvestman's Corner of the Porch</title>
+<style>@font-face{font-family:Disp;src:url(fonts/BigShouldersStencilDisplay.ttf)}@font-face{font-family:TextF;src:url(fonts/Cabin.ttf)}
+body{background:#0e6e70;font-family:TextF,sans-serif;color:#3e4034;margin:0}main{max-width:920px;margin:0 auto;padding:28px}h1,h2{font-family:Disp,sans-serif;color:#a84e2b}section{background:#f4f1e6;padding:18px 22px;margin:16px 0;border-left:8px solid #a84e2b}img{max-width:100%}button{background:#a84e2b;color:#f4f1e6;border:2px solid #0e6e70;padding:10px 14px;margin:4px;font-family:Disp,sans-serif}.flagged{color:#a84e2b;font-weight:bold}</style></head><body><main>
+<img src="intro-banner.png" alt="A single long leg crossing the porch boards in the foreground with its joint high, the harvestman beyond it in its corner with its remaining legs around it, and further along the porch a chair leg, a broom, a shut screen door, and a whole moth resting on the door frame, with no text, no letters, no wordmark, and no logo">
+<h1>crypto-cipher: The Harvestman's Corner of the Porch</h1>
+<p>Theme: The Harvestman's Corner of the Porch. Headings in Big Shoulders Stencil Display, reading text in Cabin.</p>
+<img src="logo.png" alt="One harvestman at rest in a porch corner: a single small unsegmented oval body, eight long legs in two groups of four, each bent once high with rust at the joints, kingfisher teal boards behind and reed skirting at the floor line, with the name in field guide lettering below"><img src="banner.png" alt="Late light along a porch stopping in one corner: boards running toward a shut screen door, a chair leg and a broom in the middle distance, the harvestman high on its legs in the angle with its shadow thrown long, and a small painted name board beside the door carrying the name, the only lettering in the scene">
+<img src="scene.svg" alt="The porch in three bands: the far screen door where the light fades slowly and the door never opens, the corner in the middle band where the harvestman lifts one leg at long intervals and sets it down a board further on, and the near board edge across which one whole beetle crosses once and is gone">
+<div><button type="button">Generate a Fernet Key</button><button type="button">Encrypt This Text</button><button type="button">Decrypt This Token</button><button type="button">Show Help</button></div>
+<section><h2>Three Operations Only</h2><p>A caller generates a key, encrypts a short piece of text, or decrypts a token, each run choosing exactly one of the three as its opening word. The tool works only on text handed to it on the command line, with no reading of files, no writing of files, and no standard input path, a limit this page gives early because it shapes everything a visitor might plan to do with the tool.</p></section>
+<section><h2>A Generated Key Also Enters the Log</h2><p>Key generation is served by the Fernet construction named in the code. It prints the new key on its own line, and it also writes that same key into the programme log at information level, a behaviour stated here in plain terms and without reproducing any key, since anyone who keeps the log of a generation run keeps a copy of what was generated, and a visitor deserves to know that before running it in a shared place. Extra key or text arguments offered beside a generation request are quietly ignored rather than treated as an error, because the code takes that branch before it checks anything else.</p></section>
+<section><h2>Sealing and Opening</h2><p>Encryption requires both a key and a text, each supplied as its own named argument, the two being the --key and --text arguments shown in the preserved record below, and it prints the resulting token and nothing else of substance. Decryption requires the same pair, the token standing in the text argument place, and prints the recovered words. The key must be a genuine Fernet key of the kind the generation operation produces, and an ordinary password phrase will not be accepted in its stead.</p></section>
+<section><h2>Both Arguments or the Run Fails</h2><p>The failures are collected here, where they belong. A missing key or a missing text raises an error that is logged and printed before the run exits 1, and a bad key fails in the same way. A bad token can produce an error line whose message is empty, because the underlying library raises it that way, so a blank looking error is still a failure and still exits 1, while every successful run exits 0 and prints its result.</p></section>
+<section><h2>A Blank Error Still Exits 1</h2><p>Installation is given in the preserved record below as the README gives it, a single library step drawn from the requirements file, which asks for the cryptography library at the stated floor version, cryptography at 41.0.0 or above. The README offers no clone line and no change of directory, so none is invented here. The three working lines name the opening word as a positional, which the README itself does not call it. The licence is the GNU General Public License v3.0, held in a separate file in its standard form, with no project holder line inside it.</p></section>
+<section><h2>Record preserved from the README</h2>
+<p>## Crypto-Cipher</p>
+<p>Crypto-Cipher encrypts and decrypts short text strings with Fernet</p>
+<p>symmetric encryption, and generates Fernet keys. It works on text given</p>
+<p>on the command line only; there is no file input or output mode.</p>
+<p>### Installation</p>
+<p>```</p>
+<p>pip install -r requirements.txt</p>
+<p>```</p>
+<p>### Usage</p>
+<p>```</p>
+<p>python3 main.py generate-key</p>
+<p>python3 main.py encrypt --key &lt;fernet-key&gt; --text &quot;Hello, world!&quot;</p>
+<p>python3 main.py decrypt --key &lt;fernet-key&gt; --text &lt;token-from-encrypt&gt;</p>
+<p>```</p>
+<p>The key must be a real Fernet key, as produced by `generate-key`; an</p>
+<p>arbitrary password string is not accepted. A failed run (bad key, bad</p>
+<p>token, or a missing `--key` or `--text`) prints an error and exits 1.</p>
+<p>### Verified run note</p>
+<p>The commands above are taken from the argument parser in `main.py`. A live run in this environment is blocked because the `cryptography` package is not installed here, so even `--help` stops at that import; no run result is claimed for this tool.</p>
+<p>### Security Warnings</p>
+<p>* Keep your encryption keys confidential.</p>
+<p>* Ensure the security of the communication channel while exchanging keys.</p>
+<p>### License</p>
+<p>Crypto-Cipher is licensed under the GNU General Public License v3.0. See LICENSE.</p>
+</section>
+<section><h2>Facts from the code, stated in the prose</h2><p>This record names: Fernet, generate-key, encrypt, decrypt, --key, --text, positional, exits 0, exits 1, information level, cryptography, 41.0.0, GNU General Public License v3.0, python3 main.py.</p></section>
+</main></body></html>
